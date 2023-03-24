@@ -6,9 +6,6 @@
 \usage{
 testfun(x)
 }
-\value{
-
-}
 \description{
 .. content for \description{} (no empty lines) ..
 }
