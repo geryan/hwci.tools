@@ -34,49 +34,50 @@ calculate_s_hwci <- function(
 
 
   h_f <- dplyr::case_when(
-    v > j ~ 0,
-    TRUE ~ 1 - v/j
+    v > j ~ 1,
+    TRUE ~ v/j
   )
 
-  h_s <- case_when(
-    m == 0 ~ 1,
-    TRUE ~ 1 - m/v
+  h_s <- dplyr::case_when(
+    m > v ~ 1,
+    v > 0 ~ m/v,
+    v == 0 ~ 0
   )
 
   h_m <- v
 
   x_h <- (h_f + h_s)/2
 
-  e_f <- case_when(
-    b > j ~ 0,
+  e_f <- dplyr::case_when(
+    b > j ~ 1,
     TRUE ~ 1 - b/j
   )
 
-  e_s <- case_when(
-    b == 0 ~ 1,
-    TRUE ~ 1 - sapply(X = l, FUN = mean)/w
+  e_s <- dplyr::case_when(
+    b == 0 ~ 0,
+    TRUE ~ sapply(X = l, FUN = mean)/w
   ) %>%
-    if_else(
-      . < 0, 0, .
+    dplyr::if_else(
+      . > 1, 1, .
     )
 
   e_m <- sapply(l, sum)
 
   x_e <- (e_f + e_s)/2
 
-  w_f <- case_when(
-    r == 0 ~ 1,
-    r > v + b ~ 0,
-    TRUE ~ 1 - r/(v+b)
+  w_f <- dplyr::case_when(
+    r > v + b ~ 1,
+    v + b > 0 ~ r/(v + b),
+    TRUE ~ 0
   )
 
-  w_s <- case_when(
-    r == 0 ~ 1,
-    s == "CR" ~ 0,
-    s == "EN" ~ 0.2,
-    s == "VU" ~ 0.4,
-    s == "NT" ~ 0.6,
-    TRUE ~ 0.8
+  w_s <- dplyr::case_when(
+    r == 0 ~ 0,
+    s == "CR" ~ 1,
+    s == "EN" ~ 0.8,
+    s == "VU" ~ 0.6,
+    s == "NT" ~ 0.8,
+    TRUE ~ 0.2
   )
 
   w_m <- r
