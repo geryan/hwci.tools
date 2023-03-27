@@ -1,36 +1,25 @@
 #' Title
 #'
-#' @param t
-#' @param j
-#' @param v
-#' @param m
-#' @param b
-#' @param l
-#' @param w
-#' @param r
-#' @param s
+#' @param data
 #'
 #' @return
-#' @author geryan
+#' @author Gerard Ryan
 #' @export
 #'
 #' @examples
 calculate_s_hwci <- function(
-    t, #time_series, # integer vector of time steps, e.g. years
-    j, #landscape_households, # j, single number or vector of length time_series
-    #landscape_population = NULL, # single number or vector of length time_series
-    #landscape_mean_hh_size = NULL,  # single number or vector of length time_series
-    #u, # hv_individuals, # u, vector of length time_series
-    v, # hv_incidents, # v, vector of length time_series
-    m, # h_mortalities, # m, vector of length time_series
-    b, # e_incidents, # b, vector of length time_series
-    l, # e_losses, # l, list of length time_series, where each element i is a vector of length e_incidents[i]
-    w, # household wealth
-    r, #wv_incidents,
-    s = c("LC", "NT", "VU", "EN", "CR", "NE", "DD") # s, character vector of length 1 or length time_series
+    data # s, character vector of length 1 or length time_series
 ){
 
-  s <- match.arg(s)
+  t <- data$t
+  j <- data$j
+  v <- data$v
+  m <- data$m
+  b <- data$b
+  l <- data$l
+  w <- data$w
+  r <- data$r
+  s <- data$s
 
 
   h_f <- dplyr::case_when(

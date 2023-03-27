@@ -4,24 +4,14 @@
 \alias{calculate_s_hwci}
 \title{Title}
 \usage{
-calculate_s_hwci(
-  t,
-  j,
-  v,
-  m,
-  b,
-  l,
-  w,
-  r,
-  s = c("LC", "NT", "VU", "EN", "CR", "NE", "DD")
-)
+calculate_s_hwci(data)
 }
 \arguments{
-\item{s}{}
+\item{data}{}
 }
 \description{
 Title
 }
 \author{
-geryan
+Gerard Ryan
 }
