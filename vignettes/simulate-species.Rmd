@@ -1,0 +1,149 @@
+---
+title: "simulate-species"
+output:
+  rmarkdown::html_vignette: default
+
+vignette: >
+  %\VignetteIndexEntry{simulate-species}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+An example of how to the Human-Wildlife Conflict Index suite works
+- simulate some data
+- collate sets to represent example species times
+- calculate and explore index suite for species and landscape levels.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(hwci.tools)
+library(tidyverse)
+library(patchwork)
+```
+
+## Simulate some data
+Timeline
+```{r}
+nyears <- 100
+
+time_series <- 1:nyears
+```
+
+Landscape population and number of households
+```{r}
+#landscape population
+k <- 500
+
+# average household size
+l <- 5
+
+# number of households in landscape
+j <- k/l
+```
+
+Human-victim incidents
+```{r}
+v_mu <- 20
+
+v_none   <- rep(0, times = nyears)
+v_low    <- rnbinom(n = nyears, mu = v_mu,                   size = v_mu/2)
+v_rising <- rnbinom(n = nyears, mu = v_mu + 0.2*time_series, size = v_mu/2)
+v_high   <- rnbinom(n = nyears, mu = v_mu * 3,               size = v_mu/2)
+```
+
+
+Human mortalities
+```{r}
+m_mu <- 5
+
+m_none <- rep(0, times = nyears)
+m_low    <- rnbinom(n = nyears, mu = m_mu,                    size = m_mu/2) %>%
+  if_else(v_low < ., v_low, .)
+m_rising <- rnbinom(n = nyears, mu = m_mu + 0.05*time_series, size = m_mu/2) %>%
+  if_else(v_rising < ., v_rising, .)
+m_high   <- rnbinom(n = nyears, mu = m_mu * 3,                size = m_mu/2) %>%
+  if_else(v_high < ., v_high, .)
+```
+
+
+Economic incidents
+```{r}
+b_mu <- 15
+
+b_none <- rep(0, times = nyears)
+b_low    <- rnbinom(n = nyears, mu = b_mu,                    size = b_mu/2)
+b_rising <- rnbinom(n = nyears, mu = b_mu + 0.15*time_series, size = b_mu/2)
+b_high   <- rnbinom(n = nyears, mu = b_mu * 4,                size = b_mu/2)
+```
+
+Value of economic incidents
+```{r}
+l_mu <- 100
+
+l_none <- vector("list", length = nyears)
+l_none[1:nyears] <- 0
+
+l_flat_b_low <- lapply(b_low, FUN = function(x){
+  rnbinom(n = x, mu = l_mu, size = l_mu/20)
+})
+
+l_rising_b_low <- lapply(b_low, FUN = function(x){
+  rnbinom(n = x, mu = l_mu + time_series, size = l_mu/20)
+})
+
+l_rising_b_low <- mapply(
+  FUN = function(x, y){
+    rnbinom(n = x, mu = l_mu + y, size = l_mu/20)
+  },
+  x = b_low,
+  y = time_series
+)
+
+l_flat_b_rising <- lapply(b_rising, FUN = function(x){
+  rnbinom(n = x, mu = l_mu, size = l_mu/20)
+})
+
+l_rising_b_rising <- mapply(
+  FUN = function(x, y){
+    rnbinom(n = x, mu = l_mu + y, size = l_mu/20)
+  },
+  x = b_rising,
+  y = time_series
+)
+```
+
+Household wealth (mean)
+```{r}
+w_bar <- 1000
+```
+
+Wildlife-victim incidents
+```{r}
+r_mu <- 5
+
+r_none <- rep(0, times = nyears)
+r_low    <- rnbinom(n = nyears, mu = r_mu,                    size = r_mu/2) %>%
+  if_else(v_low < ., v_low, .)
+r_rising <- rnbinom(n = nyears, mu = r_mu + 0.05*time_series, size = r_mu/2) %>%
+  if_else(v_rising < ., v_rising, .)
+r_high   <- rnbinom(n = nyears, mu = r_mu * 3,                size = r_mu/2) %>%
+  if_else(v_high < ., v_high, .)
+
+```
+
+[IUCN-Red List status](https://www.iucnredlist.org/resources/categories-and-criteria)
+```{r}
+s_cr <- "CR"
+s_en <- "EN"
+s_vu <- "VU"
+s_nt <- "NT"
+s_lc <- "LC"
+```
+
+
