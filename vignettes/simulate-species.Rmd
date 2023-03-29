@@ -1,18 +1,14 @@
 ---
 title: "simulate-species"
 output:
-  rmarkdown::html_vignette: default
-
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{simulate-species}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-An example of how to the Human-Wildlife Conflict Index suite works
-- simulate some data
-- collate sets to represent example species times
-- calculate and explore index suite for species and landscape levels.
+An example of how to the Human-Wildlife Conflict Index suite works - simulate some data - collate sets to represent example species times - calculate and explore index suite for species and landscape levels.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -28,6 +24,7 @@ library(patchwork)
 ```
 
 ## Simulate some data
+
 Timeline
 ```{r}
 nyears <- 100
@@ -57,7 +54,6 @@ v_rising <- rnbinom(n = nyears, mu = v_mu + 0.2*time_series, size = v_mu/2)
 v_high   <- rnbinom(n = nyears, mu = v_mu * 3,               size = v_mu/2)
 ```
 
-
 Human mortalities
 ```{r}
 m_mu <- 5
@@ -70,7 +66,6 @@ m_rising <- rnbinom(n = nyears, mu = m_mu + 0.05*time_series, size = m_mu/2) %>%
 m_high   <- rnbinom(n = nyears, mu = m_mu * 3,                size = m_mu/2) %>%
   if_else(v_high < ., v_high, .)
 ```
-
 
 Economic incidents
 ```{r}
@@ -144,6 +139,60 @@ s_en <- "EN"
 s_vu <- "VU"
 s_nt <- "NT"
 s_lc <- "LC"
+```
+
+
+## Create data sets for example species 
+
+Species 1: large carnivore type - human victims, no economic damage, reprisals
+```{r}
+sp1_data <- hwci_data(
+  t = time_series,
+  j = j,
+  v = v_rising,
+  m = m_rising,
+  b = b_none,
+  l = l_none,
+  w = w_bar,
+  r = r_rising,
+  s = "CR"
+)
+```
+
+Species 2: crop pest type - no human incidents, only economic incidents
+```{r}
+sp2_data <- hwci_data(
+  t = time_series,
+  j = j,
+  v = v_none,
+  m = m_none,
+  b = b_rising,
+  l = l_flat_b_rising,
+  w = w_bar,
+  r = r_none,
+  s = "LC"
+)
+```
+
+Species 3: elephant type - human and economic incidents, incidents getting worse, few reprisals
+```{r}
+sp3_data <- hwci_data(
+  t = time_series,
+  j = j,
+  v = v_rising,
+  m = m_rising,
+  b = b_rising,
+  l = l_rising_b_rising,
+  w = w_bar,
+  r = r_low,
+  s = "EN"
+)
+```
+
+
+## Calculate species indices
+```{r}
+sp3_index <- calculate_s_hwci(data = sp3_data)
 ```
 
 

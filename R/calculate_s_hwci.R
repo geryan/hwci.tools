@@ -75,7 +75,7 @@ calculate_s_hwci <- function(
 
   X_s <- (x_h * x_e * x_w)^(1/3)
 
-  result <- list(
+  species_hwci_indices <- list(
     t = t,
     h_f = h_f,
     h_s = h_s,
@@ -92,7 +92,17 @@ calculate_s_hwci <- function(
     X_s = X_s
   )
 
-  return(result)
+  as.species_hwci_indices(species_hwci_indices)
 
 }
 
+
+print.species_hwci_indices <- function(x){
+  cat("HWC single species indices:\n")
+  cat(str(x, 1))
+}
+
+as.species_hwci_indices <- function(species_hwci_indices){
+  class(species_hwci_indices) <- c("species_hwci_indices", class(species_hwci_indices))
+  return(species_hwci_indices)
+}

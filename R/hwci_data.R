@@ -38,13 +38,12 @@ hwci_data <- function(
 
 }
 
-
-
 print.hwcidata <- function(x){
   cat("hwcidata object:\n")
-  str(x)
+  cat(str(x, 1))
 }
 
 as.hwcidata <- function(hwcidata){
-  as_class(hwcidata, "hwcidata", "list")
+  class(hwcidata) <- c("hwcidata", class(hwcidata))
+  return(hwcidata)
 }
