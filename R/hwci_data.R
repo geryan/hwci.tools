@@ -34,16 +34,17 @@ hwci_data <- function(
 
   hwci_data <- list(t = t, j = j, v = v, m = m, b = b, l = l, w = w, r = r, s = s)
 
-  as.hwcidata(hwci_data)
+
+  hwci_data <- structure(hwci_data, class = c("hwcidata", class(hwci_data)))
+
+  hwci_data
+
 
 }
 
+#' @export
 print.hwcidata <- function(x){
   cat("hwcidata object:\n")
   cat(str(x, 1))
 }
 
-as.hwcidata <- function(hwcidata){
-  class(hwcidata) <- c("hwcidata", class(hwcidata))
-  return(hwcidata)
-}

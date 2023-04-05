@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-calculate_s_hwci <- function(
+hwci <- function(
     data # s, character vector of length 1 or length time_series
 ){
 
@@ -75,7 +75,7 @@ calculate_s_hwci <- function(
 
   X_s <- (x_h * x_e * x_w)^(1/3)
 
-  species_hwci_indices <- list(
+  hwci <- list(
     t = t,
     h_f = h_f,
     h_s = h_s,
@@ -92,17 +92,22 @@ calculate_s_hwci <- function(
     X_s = X_s
   )
 
-  as.species_hwci_indices(species_hwci_indices)
+  #as.s_indices(s_indices_result)
+
+
+  hwci <- structure(hwci, class = c("hwciresult", class(hwci)))
+
+  hwci
 
 }
 
-
-print.species_hwci_indices <- function(x){
-  cat("HWC single species indices:\n")
+#' @export
+print.hwciresult <- function(x){
+  cat("HWC index suite:\n")
   cat(str(x, 1))
 }
 
-as.species_hwci_indices <- function(species_hwci_indices){
-  class(species_hwci_indices) <- c("species_hwci_indices", class(species_hwci_indices))
-  return(species_hwci_indices)
-}
+# as.s_indices <- function(s_indices_result){
+#   class(s_indices_result) <- c("s_indices", class(s_indices_result))
+#   return(s_indices_result)
+# }

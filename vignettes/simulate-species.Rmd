@@ -157,6 +157,7 @@ sp1_data <- hwci_data(
   r = r_rising,
   s = "CR"
 )
+sp1_data
 ```
 
 Species 2: crop pest type - no human incidents, only economic incidents
@@ -192,7 +193,23 @@ sp3_data <- hwci_data(
 
 ## Calculate species indices
 ```{r}
-sp3_index <- calculate_s_hwci(data = sp3_data)
+sp1_indices <- hwci(data = sp1_data)
 ```
 
+
+```{r}
+sp2_indices <- hwci(data = sp2_data)
+```
+
+
+```{r}
+sp3_indices <- hwci(data = sp3_data)
+sp3_indices
+```
+
+## Calculate landscape metrics
+```{r}
+allsp_lm <- hwci_lm(sp1_indices, sp2_indices, sp3_indices)
+allsp_lm
+```
 
