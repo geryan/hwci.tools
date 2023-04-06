@@ -8,6 +8,8 @@
 #' @export
 #'
 #' @examples
+#' allspp_lm <- hwci_lm(sp1_indices, sp2_indices, sp3_indices)
+#' allspp_lm
 hwci_lm <- function(...){
 
   data <- list(...)
@@ -26,14 +28,14 @@ hwci_lm <- function(...){
 
   #X_l <- as.lm_index(X_l)
 
-  X_l <- structure(X_l, class = c("hwci_lm_result", class(X_l)))
+  X_l <- structure(X_l, class = c("hwci_lm", class(X_l)))
 
   X_l
 
 }
 
 #' @export
-print.hwci_lm_result <- function(x){
+print.hwci_lm <- function(x){
   cat("HWC landscape mean index:\n")
   cat(x)
 }

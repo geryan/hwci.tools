@@ -15,6 +15,10 @@ A \code{hwci_lm_result} object containing landscape mean
 \description{
 Calculate Landscape Mean HWC Index
 }
+\examples{
+allspp_lm <- hwci_lm(sp1_indices, sp2_indices, sp3_indices)
+allspp_lm
+}
 \author{
 Gerard Ryan
 }
