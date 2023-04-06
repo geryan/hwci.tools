@@ -2,15 +2,18 @@
 % Please edit documentation in R/hwci.R
 \name{hwci}
 \alias{hwci}
-\title{Title}
+\title{HWC Index suite}
 \usage{
 hwci(data)
 }
 \arguments{
 \item{data}{}
 }
+\value{
+A \code{hwciresults} object containing the HWC Index suite.
+}
 \description{
-Title
+Calculate HWC Index suite for single species or landscape aggregate
 }
 \author{
 Gerard Ryan

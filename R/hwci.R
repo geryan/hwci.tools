@@ -1,8 +1,9 @@
-#' Title
+#' @title  HWC Index suite
+#' @description Calculate HWC Index suite for single species or landscape aggregate
 #'
 #' @param data
 #'
-#' @return
+#' @return A `hwciresults` object containing the HWC Index suite.
 #' @author Gerard Ryan
 #' @export
 #'
@@ -10,6 +11,10 @@
 hwci <- function(
     data # s, character vector of length 1 or length time_series
 ){
+
+  if(!("hwcidata" %in% class(data))){
+    stop("data must be a hwcidata class object")
+  }
 
   t <- data$t
   j <- data$j
@@ -92,9 +97,6 @@ hwci <- function(
     X_s = X_s
   )
 
-  #as.s_indices(s_indices_result)
-
-
   hwci <- structure(hwci, class = c("hwciresult", class(hwci)))
 
   hwci
@@ -107,7 +109,3 @@ print.hwciresult <- function(x){
   cat(str(x, 1))
 }
 
-# as.s_indices <- function(s_indices_result){
-#   class(s_indices_result) <- c("s_indices", class(s_indices_result))
-#   return(s_indices_result)
-# }
