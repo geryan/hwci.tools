@@ -16,6 +16,47 @@
 #' @export
 #'
 #' @examples
+#'
+#' #Timeline
+#' nyears <- 100
+#' time_series <- 1:nyears
+#' #landscape population
+#' k <- 500
+#' # average household size
+#' ll <- 5
+#' # number of households in landscape
+#' j <- k/ll
+#' #Human-victim incidents
+#' v_mu <- 20
+#' v_rising <- rnbinom(n = nyears, mu = v_mu + 0.2*time_series, size = v_mu/2)
+#' #Human mortalities
+#' m_mu <- 5
+#' m_rising <- rnbinom(n = nyears, mu = m_mu + 0.05*time_series, size = m_mu/2) %>%
+#'   if_else(v_rising < ., v_rising, .)
+#' #Economic incidents
+#' b_none <- rep(0, times = nyears)
+#' #Value of economic incidents
+#' l_none <- vector("list", length = nyears)
+#' # Household wealth (mean)
+#' w_bar <- 1000
+#' #Wildlife-victim incidents
+#' r_mu <- 5
+#' r_rising <- rnbinom(n = nyears, mu = r_mu + 0.05*time_series, size = r_mu/2) %>%
+#'   if_else(v_rising < ., v_rising, .)
+#' # Put together into data object
+#' sp1_data <- hwci_data(
+#'   t = time_series,
+#'   j = j,
+#'   v = v_rising,
+#'   m = m_rising,
+#'   b = b_none,
+#'   l = l_none,
+#'   w = w_bar,
+#'   r = r_rising,
+#'   s = "CR"
+#' )
+#' sp1_data
+
 hwci_data <- function(
     t, #time_series, # integer vector of time steps, e.g. years
     j, #landscape_households, # j, single number or vector of length time_series
