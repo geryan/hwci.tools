@@ -4,16 +4,30 @@
 \alias{hwci}
 \title{HWC Index suite}
 \usage{
-hwci(data)
+hwci(data, landscape = FALSE)
 }
 \arguments{
-\item{data}{}
+\item{data}{A \code{hwcidata} object (see \code{?hwci_data}).}
+
+\item{landscape}{\code{logical}. \code{FALSE} for single species, \code{TRUE} for landscape aggregate.}
 }
 \value{
 A \code{hwciresults} object containing the HWC Index suite.
 }
 \description{
-Calculate HWC Index suite for single species or landscape aggregate
+Calculate HWC Index suite for single species or landscape aggregate.
+}
+\examples{
+# Calculate index suite for single species
+sp1_indices <- hwci(data = sp1_data)
+sp1_indices
+# Calculate landscape aggregate index suite
+allspp_dat <- combine_hwci_data(sp1_data, sp2_data, sp3_data)
+hwci(
+ data = allspp_dat,
+ landscape = TRUE
+ )
+
 }
 \author{
 Gerard Ryan

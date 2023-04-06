@@ -1,15 +1,28 @@
 #' @title  HWC Index suite
-#' @description Calculate HWC Index suite for single species or landscape aggregate
+#' @description Calculate HWC Index suite for single species or landscape aggregate.
 #'
-#' @param data
+#' @param data A `hwcidata` object (see `?hwci_data`).
+#' @param landscape `logical`. `FALSE` for single species, `TRUE` for landscape aggregate.
 #'
 #' @return A `hwciresults` object containing the HWC Index suite.
 #' @author Gerard Ryan
 #' @export
 #'
 #' @examples
+#' # Calculate index suite for single species
+#' sp1_indices <- hwci(data = sp1_data)
+#' sp1_indices
+#' # Calculate landscape aggregate index suite
+#' allspp_dat <- combine_hwci_data(sp1_data, sp2_data, sp3_data)
+#' hwci(
+#'  data = allspp_dat,
+#'  landscape = TRUE
+#'  )
+#'
+
 hwci <- function(
-    data # s, character vector of length 1 or length time_series
+    data, # s, character vector of length 1 or length time_series
+    landscape = FALSE
 ){
 
   if(!("hwcidata" %in% class(data))){
@@ -80,24 +93,46 @@ hwci <- function(
 
   X_s <- (x_h * x_e * x_w)^(1/3)
 
-  hwci <- list(
-    t = t,
-    h_f = h_f,
-    h_s = h_s,
-    h_m = h_m,
-    e_f = e_f,
-    e_s = e_s,
-    e_m = e_m,
-    w_f = w_f,
-    w_s = w_s,
-    w_m = w_m,
-    x_h = x_h,
-    x_e = x_e,
-    x_w = x_w,
-    X_s = X_s
-  )
+  if(!landscape){
+    hwci <- list(
+      t = t,
+      h_f = h_f,
+      h_s = h_s,
+      h_m = h_m,
+      e_f = e_f,
+      e_s = e_s,
+      e_m = e_m,
+      w_f = w_f,
+      w_s = w_s,
+      w_m = w_m,
+      x_h = x_h,
+      x_e = x_e,
+      x_w = x_w,
+      X_s = X_s
+    )
 
-  hwci <- structure(hwci, class = c("hwciresult", class(hwci)))
+    hwci <- structure(hwci, class = c("hwciresult", "hwci_single_species", class(hwci)))
+  } else {
+
+    hwci <- list(
+      t = t,
+      h_f = h_f,
+      h_s = h_s,
+      h_m = h_m,
+      e_f = e_f,
+      e_s = e_s,
+      e_m = e_m,
+      w_f = w_f,
+      w_s = w_s,
+      w_m = w_m,
+      x_h = x_h,
+      x_e = x_e,
+      x_w = x_w,
+      Psi = X_s
+    )
+
+    hwci <- structure(hwci, class = c("hwciresult", "hwci_la", class(hwci)))
+  }
 
   hwci
 
@@ -109,3 +144,8 @@ print.hwciresult <- function(x){
   cat(str(x, 1))
 }
 
+#' @export
+plot.hwciresult <- function(x){
+
+
+}
