@@ -7,13 +7,22 @@
 combine_hwci_data(...)
 }
 \arguments{
-\item{...}{One or more \code{hwcidata} objects.}
+\item{...}{One or more \code{hwcidata} objects from the same landscape.}
 }
 \value{
 A \code{hwcidata} object.
 }
 \description{
 Combines several \code{hwcidata} objects into a single one (to calculate a landscape mean)
+}
+\details{
+This function assumes that objects passed to \code{...} are from the same landscape over the same time.
+
+In combining objects it takes \code{t}, \code{j}, \code{w}, and \code{s} from the first object passed, as it is assumed that these are the same over the landscape. \code{v}, \code{m}, \code{b}, and \code{r} are summed at each time point, and \code{l} are concatenated at each time point.
+}
+\examples{
+allspp_dat <- combine_hwci_data(sp1_data, sp2_data, sp3_data)
+allspp_dat
 }
 \author{
 Gerard Ryan
