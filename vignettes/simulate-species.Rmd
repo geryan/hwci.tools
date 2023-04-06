@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 library(hwci.tools)
 library(tidyverse)
 library(patchwork)
+set.seed(1969)
 ```
 
 ## Simulate some data
@@ -208,8 +209,28 @@ sp3_indices
 ```
 
 ## Calculate landscape metrics
+
+*Landscape mean*
 ```{r}
-allsp_lm <- hwci_lm(sp1_indices, sp2_indices, sp3_indices)
-allsp_lm
+allspp_lm <- hwci_lm(sp1_indices, sp2_indices, sp3_indices)
+allspp_lm
+```
+
+*Landscape aggregate indicators*
+
+Combine the data for the three species 
+```{r}
+allspp_dat <- combine_hwci_data(sp1_data, sp2_data, sp3_data)
+allspp_dat
+```
+
+Analyse as per single species
+```{r}
+allspp_la <- hwci(
+  data = allspp_dat,
+  landscape = TRUE
+)
+
+allspp_la
 ```
 
