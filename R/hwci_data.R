@@ -11,7 +11,8 @@
 #' @param r Number of wildlife-victim incidents. An integer vector of `length(t)`.
 #' @param s IUCN Red List classification of the species, sub-species, or population of interest. Character vector of length 1, corresponding to one of `"LC"`, `"NT"`, `"VU"`, `"EN"`, `"CR"`, `"NE"`, or `"DD"`.
 #'
-#' @return
+#' @return A `hwcidata` object ready for analysis.
+#' @author Gerard Ryan
 #' @export
 #'
 #' @examples
@@ -33,7 +34,6 @@ hwci_data <- function(
   s <- match.arg(s)
 
   hwci_data <- list(t = t, j = j, v = v, m = m, b = b, l = l, w = w, r = r, s = s)
-
 
   hwci_data <- structure(hwci_data, class = c("hwcidata", class(hwci_data)))
 

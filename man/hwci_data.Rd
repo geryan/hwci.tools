@@ -35,6 +35,12 @@ hwci_data(
 
 \item{s}{IUCN Red List classification of the species, sub-species, or population of interest. Character vector of length 1, corresponding to one of \code{"LC"}, \code{"NT"}, \code{"VU"}, \code{"EN"}, \code{"CR"}, \code{"NE"}, or \code{"DD"}.}
 }
+\value{
+A \code{hwcidata} object ready for analysis.
+}
 \description{
 Data object containing data to calculate simplified HWC Index
+}
+\author{
+Gerard Ryan
 }
