@@ -1,8 +1,9 @@
-#' Title
+#' @title  HWC Landscape Mean Index
+#' @description Calculate Landscape Mean HWC Index
 #'
-#' @param data
+#' @param ... One or more `hwciresults` objects.
 #'
-#' @return
+#' @return A `hwci_lm_result` object containing landscape mean
 #' @author Gerard Ryan
 #' @export
 #'
@@ -10,6 +11,10 @@
 hwci_lm <- function(...){
 
   data <- list(...)
+
+  if(FALSE %in% sapply(data, FUN = function(x){"hwciresult" %in% class(x)})){
+    stop("All data must be a hwciresult class objects")
+  }
 
   d <- lapply(data, FUN = function(x){x$X_s})
 

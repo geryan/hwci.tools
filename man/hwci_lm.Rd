@@ -2,15 +2,18 @@
 % Please edit documentation in R/hwci_lm.R
 \name{hwci_lm}
 \alias{hwci_lm}
-\title{Title}
+\title{HWC Landscape Mean Index}
 \usage{
 hwci_lm(...)
 }
 \arguments{
-\item{data}{}
+\item{...}{One or more \code{hwciresults} objects.}
+}
+\value{
+A \code{hwci_lm_result} object containing landscape mean
 }
 \description{
-Title
+Calculate Landscape Mean HWC Index
 }
 \author{
 Gerard Ryan
