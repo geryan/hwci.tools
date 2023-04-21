@@ -128,7 +128,7 @@ hwci <- function(
       x_h = x_h,
       x_e = x_e,
       x_w = x_w,
-      Psi = X_s
+      Psi_a = X_s
     )
 
     hwci <- structure(hwci, class = c("hwciresult", "hwci_la", class(hwci)))
@@ -144,8 +144,4 @@ print.hwciresult <- function(x){
   cat(str(x, 1))
 }
 
-#' @export
-plot.hwciresult <- function(x){
 
-
-}

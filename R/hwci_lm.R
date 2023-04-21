@@ -24,23 +24,25 @@ hwci_lm <- function(...){
 
   m <- matrix(unlist(d), ncol = kappa)
 
-  X_l <- apply(m, MARGIN = 1, FUN = prod)^(1/kappa)
+  Psi_m <- apply(m, MARGIN = 1, FUN = prod)^(1/kappa)
 
-  #X_l <- as.lm_index(X_l)
+  t <- data[[1]]$t
 
-  X_l <- structure(X_l, class = c("hwci_lm", class(X_l)))
+  hwcilm <- list(
+    t = t,
+    Psi_m = Psi_m
+  )
 
-  X_l
+ hwcilm <- structure(hwcilm, class = c("hwci_lm", class(hwcilm)))
+
+ hwcilm
 
 }
 
 #' @export
 print.hwci_lm <- function(x){
   cat("HWC landscape mean index:\n")
-  cat(x)
+  str(x)
 }
 
-# as.lm_index <- function(X_l){
-#   as_class(X_l, "lm_index")
-# }
 

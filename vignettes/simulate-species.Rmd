@@ -234,3 +234,25 @@ allspp_la <- hwci(
 allspp_la
 ```
 
+## Plot results
+
+```{r}
+plot_hwci(data = sp1_indices, type = "indicator")
+```
+```{r}
+plot_hwci(data = sp1_indices, type = "sub-index")
+```
+```{r}
+plot_hwci(data = sp1_indices, type = "index")
+```
+```{r}
+plot_hwci(sp1_indices) # type = all is default here
+```
+```{r}
+plot_hwci(allspp_la)
+```
+
+```{r}
+plot_hwci(allspp_lm)
+```
+

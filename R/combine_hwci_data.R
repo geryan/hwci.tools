@@ -67,8 +67,7 @@ extend_list_data <- function(x, y){
   z <- lapply(
     X = x,
     FUN = function(x, y){
-      x %>%
-        tibble::as_tibble %>%
+      tibble::as_tibble(x) %>%
         pull({{y}})
     },
     y = y
