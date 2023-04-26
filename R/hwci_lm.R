@@ -24,7 +24,7 @@ hwci_lm <- function(...){
 
   m <- matrix(unlist(d), ncol = kappa)
 
-  Psi_m <- apply(m, MARGIN = 1, FUN = prod)^(1/kappa)
+  Psi_m <- 1 - apply(1 - m, MARGIN = 1, FUN = prod)^(1/kappa)
 
   t <- data[[1]]$t
 

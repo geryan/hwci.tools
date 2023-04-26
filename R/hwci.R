@@ -91,7 +91,7 @@ hwci <- function(
 
   x_w <- (w_f + w_s)/2
 
-  X_s <- (x_h * x_e * x_w)^(1/3)
+  X_s <- 1 - ((1 - x_h) * (1 - x_e) * (1 - x_w))^(1/3)
 
   if(!landscape){
     hwci <- list(
