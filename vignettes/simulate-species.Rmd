@@ -148,6 +148,7 @@ s_lc <- "LC"
 Species 1: large carnivore type - human victims, no economic damage, reprisals
 ```{r}
 sp1_data <- hwci_data(
+  species = "species1",
   t = time_series,
   j = j,
   v = v_rising,
@@ -164,6 +165,7 @@ sp1_data
 Species 2: crop pest type - no human incidents, only economic incidents
 ```{r}
 sp2_data <- hwci_data(
+  species = "species2",
   t = time_series,
   j = j,
   v = v_none,
@@ -179,6 +181,7 @@ sp2_data <- hwci_data(
 Species 3: elephant type - human and economic incidents, incidents getting worse, few reprisals
 ```{r}
 sp3_data <- hwci_data(
+  species = "species3",
   t = time_series,
   j = j,
   v = v_rising,
